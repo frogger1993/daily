@@ -1,0 +1,85 @@
+.personsList {
+
+  width: 300px;
+  height: 600px;
+  position: absolute;
+
+  margin: 20px;
+
+  right: 0px;
+
+}
+
+.alreadyUsed {
+  background-color: lightgreen;
+}
+
+.teamselection {
+  width: 300px;
+  height: 30px;
+  position: absolute;
+
+  margin: 20px;
+
+  top: 0px;
+  right: 0px;
+}
+
+.teamselection select,input{
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.startButton {
+  background-color: #13adef;
+  border-radius: 5px;
+  color: white;
+  width: 200px;
+  text-align: center;
+  margin: 10px;
+  cursor: pointer;
+}
+
+textarea {
+  width: 100%;
+  height: 100%;
+}
+
+.randElement {
+  width: 600px;
+  height: 20px;
+  padding: 20px;
+  border: 1px solid grey;
+  margin: 2px;
+}
+
+.randList {
+  width: 300px;
+  height: 600px;
+  position: absolute;
+
+  margin: 20px;
+
+  left: 0px;
+}
+
+.randText{
+  float: left;
+  font-size: 20px;
+}
+
+.selectionPoint{
+  margin-top: -10px;
+  width: 40px;
+  height: 40px;
+  border-radius: 20px;
+  background-color: green;
+  float: right;
+}
+
+.restTime{
+  font-size: 20px;
+  width: 40px;
+  height: 40px;
+  float: right;
+}
