@@ -1,16 +1,41 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Teams} from './teams';
+import {animate, state, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: [
+    trigger('EnterLeave', [
+      state('flyIn', style({transform: 'translateY(0)'})),
+      transition(':enter', [
+        style({transform: 'translateX(-100%)'}),
+        animate('0.5s ease-out')
+      ]),
+      transition(':leave', [
+        animate('0.5s ease-out', style({transform: 'translateX(-100%)'}))
+      ])
+    ]),
+    trigger('select', [
+      transition(':enter', [
+        animate('0.4s'),
+        style({backgroundColor: 'grey', transform: 'translateX(-40px)'}),
+        animate('1s')
+      ])
+    ])
+  ]
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'daily';
 
   persons: string[] = [];
   teams: Teams[] = [];
+
+  storedTeams: Teams[] = [];
+  STOREDTEAMKEY = 'storedTeams';
+  newTeamName = '';
+
   timePerPerson = 120;
   timeRemaining = -1;
 
@@ -24,6 +49,16 @@ export class AppComponent {
 
   constructor() {
     this.getValues();
+  }
+
+  ngOnInit(): void {
+    const storedContent = localStorage.getItem(this.STOREDTEAMKEY);
+    if (storedContent && storedContent.length > 0) {
+      this.storedTeams = JSON.parse(storedContent);
+      this.storedTeams.forEach(t => {
+        this.teams.push(t);
+      });
+    }
   }
 
   private getValues(): void {
@@ -50,7 +85,13 @@ export class AppComponent {
   }
 
   changePersons(event): void {
-    this.persons = event.target.value.split('\n');
+    this.persons = [];
+    const newPersons = event.target.value.split('\n');
+    newPersons.forEach(p => {
+      if (p.length > 0){
+        this.persons.push(p);
+      }
+    });
   }
 
   startRandom(): void {
@@ -109,4 +150,32 @@ export class AppComponent {
     this.clearRandom();
     this.persons = this.teams.filter(t => t.title === teamname)[0].persons;
   }
+
+  getBackgroundProgressImageForRandomElement(): string {
+    if (this.timePerPerson <= 0 || this.timeRemaining <= 0) {
+      return 'lightgreen';
+    }
+    const percentage = (((this.timePerPerson - this.timeRemaining) / this.timePerPerson) * 100) + '%';
+    return 'linear-gradient(0.25turn, lightgreen, lightgreen ' + percentage + ', white ' + percentage + ', white)';
+  }
+
+  saveCurrentTeam(): void {
+    if (!this.newTeamName || this.newTeamName.length === 0) {
+      alert('Please enter a team name');
+      return;
+    }
+    const alreadySavedTeam = this.storedTeams.filter(t => t.title === this.newTeamName)[0];
+    if (alreadySavedTeam) {
+      alreadySavedTeam.persons = this.persons;
+    } else {
+      const newTeam = new Teams();
+      newTeam.title = this.newTeamName;
+      newTeam.persons = this.persons;
+      this.storedTeams.push(newTeam);
+      this.teams.push(newTeam);
+    }
+    localStorage.setItem(this.STOREDTEAMKEY, JSON.stringify(this.storedTeams));
+    alert('SAVED');
+  }
+
 }

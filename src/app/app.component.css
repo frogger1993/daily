@@ -1,8 +1,17 @@
+.daily{
+
+}
+
+.title{
+  margin:20px;
+  font-size: 25px;
+}
+
 .personsList {
 
-  width: 300px;
-  height: 600px;
-  position: absolute;
+  width: 100%;
+  height: 400px;
+  position: relative;
 
   margin: 20px;
 
@@ -10,15 +19,28 @@
 
 }
 
+.rightSide {
+  float: left;
+  position: relative;
+  width: 300px;
+  max-width: 100%;
+  margin: 0px 30px 0px 0px;
+}
+
+.leftSide {
+  float: left;
+  position: relative;
+  max-width: 100%;
+  width: 450px;
+}
+
 .alreadyUsed {
   background-color: lightgreen;
 }
 
 .teamselection {
-  width: 300px;
-  height: 30px;
-  position: absolute;
-
+  width: 100%;
+  position: relative;
   margin: 20px;
 
   top: 0px;
@@ -30,13 +52,20 @@
   margin-bottom: 5px;
 }
 
-.startButton {
+.buttonArea{
+  width: 100%;
+  height: 40px;
+  position: relative;
+}
+
+.button {
   background-color: #13adef;
   border-radius: 5px;
   color: white;
-  width: 200px;
+  width: 150px;
+  padding: 2px;
   text-align: center;
-  margin: 10px;
+  margin: 20px;
   cursor: pointer;
 }
 
@@ -46,7 +75,7 @@ textarea {
 }
 
 .randElement {
-  width: 600px;
+  width: calc(100% - 70px);
   height: 20px;
   padding: 20px;
   border: 1px solid grey;
@@ -54,10 +83,7 @@ textarea {
 }
 
 .randList {
-  width: 300px;
-  height: 600px;
-  position: absolute;
-
+  width: 100%;
   margin: 20px;
 
   left: 0px;
@@ -82,4 +108,15 @@ textarea {
   width: 40px;
   height: 40px;
   float: right;
+}
+
+.saveSection{
+  margin: 40px 20px 20px 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  width: calc(100% - 20px);
+}
+
+.saveSection input{
+  width: 90%;
 }

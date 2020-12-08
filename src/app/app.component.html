@@ -1,43 +1,62 @@
-<div>
+<div class="daily">
 
-  <div>DAILY RANDOMIZER</div>
+  <div class="leftSide">
+    <div class="title">DAILY RANDOMIZER</div>
 
-  <div class="startButton" (click)="startRandom()">
-    START RANDOM
-  </div>
-
-  <div class="startButton" (click)="clearRandom()">
-    CLEAR
-  </div>
-
-  <div class="teamselection">
-    Team:
-    <select (change)="changeTeam($event.target.value)">
-      <option *ngFor="let t of teams">{{t.title}}</option>
-    </select>
-    Talk Time per Person (Sec)
-    <input type="number" [(ngModel)]="timePerPerson">
-  </div>
-
-  <div class="randList">
-    <div class="randElement" *ngFor="let p of persons; let i=index"
-         [ngClass]="{'alreadyUsed': alreadyShownElements.includes(i)}">
-      <div class="randText">
-        {{p}}
+    <div class="buttonArea">
+      <div class="button" style="float: left;" (click)="startRandom()">
+        START RANDOM
       </div>
 
-      <div class="selectionPoint" *ngIf="i === currentRandom">
+      <div class="button" style="float: left;"  (click)="clearRandom()">
+        CLEAR
       </div>
+    </div>
 
-      <div class="restTime" *ngIf="i === currentRandom && timeRemaining > 0">
-        {{timeRemaining}}
+    <div class="randList">
+      <div class="randElement" *ngFor="let p of persons; let i=index"
+           [@EnterLeave]="'flyIn'"
+           [ngClass]="{'alreadyUsed': alreadyShownElements.includes(i)}"
+           [ngStyle]="{'background-image': (i === currentRandom && timeRemaining > 0) ? getBackgroundProgressImageForRandomElement() : ''}">
+        <div class="randText">
+          {{p}}
+        </div>
+
+        <div class="selectionPoint" [@select] *ngIf="i === currentRandom">
+        </div>
+
+        <div class="restTime" *ngIf="i === currentRandom && timeRemaining > 0">
+          {{timeRemaining}}
+        </div>
+
       </div>
-
     </div>
   </div>
 
-  <div class="personsList">
-    <textarea (change)="changePersons($event)" [value]="getPersonList()"></textarea>
+  <div class="rightSide">
+    <div class="teamselection">
+      Team:
+      <select (change)="changeTeam($event.target.value)">
+        <option *ngFor="let t of teams">{{t.title}}</option>
+      </select>
+      Talk Time per Person (Sec)
+      <input type="number" [(ngModel)]="timePerPerson">
+    </div>
+
+    <div class="personsList">
+      Persons (one per line)
+      <textarea (change)="changePersons($event)" [value]="getPersonList()"></textarea>
+    </div>
+
+    <div class="saveSection">
+      Store the current team to your local browser storage (there will be no communication to any server)
+      <br>
+      If you want to replace a team just use the same team name as already stored
+      <div>
+        <input type="text" placeholder="team name" [(ngModel)]="newTeamName">
+        <div class="button" style="margin-left: auto; margin-right: auto" (click)="saveCurrentTeam()">SAVE</div>
+      </div>
+    </div>
   </div>
 
 </div>
