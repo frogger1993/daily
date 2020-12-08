@@ -1,11 +1,16 @@
 [
   {
-    "title": "Test Team",
+    "title": "Default Team",
     "persons": [
-      "Test0",
-      "Test1",
-      "Test2",
-      "Test3"
+      "John Doe",
+      "Winston Smith",
+      "Ahsoka Tano",
+      "Miles O'Brian",
+      "Eru Ilúvatar",
+      "Luna Lovegood",
+      "Daenerys Targaryen",
+      "Luna Lovegood",
+      "Geralt of Rivia"
     ]
   }
 ]
