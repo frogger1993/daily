@@ -61,3 +61,8 @@ Example:
 ````
 
 
+Licenses:
+Copyright (c) 2020 frogger1993
+
+third party licenses can be seen in docs/3rdpartylicenses.txt
+
